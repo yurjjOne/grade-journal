@@ -23,3 +23,21 @@ def add_record(records, student, subject, grade):
     if student == "" or subject == "":
         raise ValueError("ім'я студента і предмет не можуть бути порожніми")
     records.append({"student": student, "subject": subject, "grade": grade})
+
+
+def format_records(records):
+    """Рядки для виводу журналу, відсортовані за студентом і предметом."""
+    lines = []
+    for r in sorted(records, key=lambda r: (r["student"], r["subject"])):
+        lines.append(f"{r['student']} — {r['subject']}: {r['grade']}")
+    return lines
+
+
+def average_by_student(records):
+    """Словник {студент: середній бал}."""
+    sums = {}
+    counts = {}
+    for r in records:
+        sums[r["student"]] = sums.get(r["student"], 0) + r["grade"]
+        counts[r["student"]] = counts.get(r["student"], 0) + 1
+    return {name: sums[name] / counts[name] for name in sums}

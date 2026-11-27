@@ -8,6 +8,7 @@ MENU = """
 === Журнал оцінок ===
 1. Додати оцінку
 2. Показати журнал
+3. Середній бал студентів
 0. Вийти
 """
 
@@ -26,7 +27,14 @@ def main():
                 save_json(DATA_FILE, records)
                 print("Запис додано.")
             elif choice == "2":
-                print("Показ журналу з'явиться в наступній версії.")
+                lines = rc.format_records(records)
+                print("\n".join(lines) if lines else "Журнал порожній.")
+            elif choice == "3":
+                averages = rc.average_by_student(records)
+                if not averages:
+                    print("Журнал порожній.")
+                for name, avg in sorted(averages.items()):
+                    print(f"{name}: {avg:.2f}")
             elif choice == "0":
                 print("До побачення!")
                 break
