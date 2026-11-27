@@ -1,4 +1,5 @@
 """Журнал оцінок — заліковий проєкт команди (MVP)."""
+from src import records as rc
 
 MENU = """
 === Журнал оцінок ===
@@ -15,7 +16,11 @@ def main():
         choice = input("Ваш вибір: ").strip()
         try:
             if choice == "1":
-                print("Додавання запису з'явиться в наступній версії.")
+                student = input("Студент: ")
+                subject = input("Предмет: ")
+                grade = rc.parse_grade(input("Оцінка (0-100): "))
+                rc.add_record(records, student, subject, grade)
+                print("Запис додано.")
             elif choice == "2":
                 print("Показ журналу з'явиться в наступній версії.")
             elif choice == "0":
